@@ -1,4 +1,5 @@
 import React from 'react';
+import casecovidImage from '../files/casecovid.png';
 
 function Positif() {
 
@@ -15,6 +16,7 @@ function Positif() {
         style={{ border: "none", backgroundColor: "#263043" }}
         frameBorder="0"
       ></iframe>
+      <img src={casecovidImage} width={1200} height={600} alt="casecovid" />
     </main>
     </>
   );
