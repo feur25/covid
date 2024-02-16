@@ -1,6 +1,7 @@
 import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
+import io
 
 st.set_page_config(layout="wide")
 
@@ -13,28 +14,36 @@ class CovidCaseVisualizer:
         selected_data = self.df[self.df['location'].isin(selected_countries)]
         selected_data = selected_data.sort_values(by='total_cases', ascending=False)
         
-        fig, ax = plt.subplots(figsize=(10, 6))
+        fig, ax = plt.subplots(figsize=(10, 6), facecolor='none') 
         ax.barh(selected_data['location'], selected_data['total_cases'], color='royalblue')
-        ax.set_xlabel('Nombre de morts')
-        ax.set_ylabel('Pays')
-        ax.set_title('Nombre de morts par pays')
-        ax.tick_params(axis='x', labelcolor='gray')
-        ax.tick_params(axis='y', labelcolor='gray')
+        ax.set_xlabel('Nombre de cas', color='white')
+        ax.set_ylabel('Pays', color='white')
+        ax.set_title('Nombre de cas par pays', color='white')
+        ax.tick_params(axis='x', labelcolor='white')
+        ax.tick_params(axis='y', labelcolor='white')
         ax.invert_yaxis() 
-        st.pyplot(fig)
+        
+        buf = io.BytesIO()
+        plt.savefig(buf, format='png', transparent=True)
+        buf.seek(0)
+        st.image(buf)
 
     def plot_selected_new_cases(self, selected_countries):
         selected_data = self.df[self.df['location'].isin(selected_countries)]
         selected_data = selected_data.sort_values(by='new_cases', ascending=False)
         
-        fig, ax = plt.subplots(figsize=(10, 6))
+        fig, ax = plt.subplots(figsize=(10, 6), facecolor='none') 
         ax.bar(selected_data['location'], selected_data['new_cases'], color='darkorange')
-        ax.set_xlabel('Pays')
-        ax.set_ylabel('Nouveaux cas')
-        ax.set_title('Nouveaux cas par pays')
-        ax.tick_params(axis='x', rotation=45, labelcolor='gray')
-        ax.tick_params(axis='y', labelcolor='gray')
-        st.pyplot(fig)
+        ax.set_xlabel('Pays', color='white')
+        ax.set_ylabel('Nouveaux cas', color='white')
+        ax.set_title('Nouveaux cas par pays', color='white')
+        ax.tick_params(axis='x', rotation=45, labelcolor='white')
+        ax.tick_params(axis='y', labelcolor='white')
+        
+        buf = io.BytesIO()
+        plt.savefig(buf, format='png', transparent=True)
+        buf.seek(0)
+        st.image(buf)
 
     def plot_cases_distribution(self, selected_countries):
         selected_data = self.df[self.df['location'].isin(selected_countries)]
@@ -42,10 +51,14 @@ class CovidCaseVisualizer:
         labels = selected_data['location']
         sizes = selected_data['total_cases'] / total_cases * 100
 
-        fig, ax = plt.subplots(figsize=(8, 8))
+        fig, ax = plt.subplots(figsize=(8, 8), facecolor='none') 
         ax.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=140)
-        ax.set_title('Répartition des cas par pays')
-        st.pyplot(fig)
+        ax.set_title('Répartition des cas par pays', color='white')
+        
+        buf = io.BytesIO()
+        plt.savefig(buf, format='png', transparent=True)
+        buf.seek(0)
+        st.image(buf)
 
     def run(self):
         selected_countries = st.multiselect('Sélectionnez les pays:', self.all_countries)

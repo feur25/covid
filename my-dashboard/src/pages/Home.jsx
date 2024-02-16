@@ -17,6 +17,7 @@ function Home() {
         style={{ border: "none", backgroundColor: "#263043" }}
         frameBorder="0"
       ></iframe>
+      <image src="../deadcase.png" width={100} height={100} alt="deadcase" />
     </main>
   );
 }
