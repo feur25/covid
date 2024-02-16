@@ -1,6 +1,7 @@
 import React from 'react';
 // import TotalDeaths from '../components/TotalDeaths';
 // import GlobeVisualization from '../components/GlobeVisualization';
+import deadcaseImage from '../files/deadcase.png';
 
 function Home() {
 
@@ -17,7 +18,7 @@ function Home() {
         style={{ border: "none", backgroundColor: "#263043" }}
         frameBorder="0"
       ></iframe>
-      <image src="../deadcase.png" width={100} height={100} alt="deadcase" />
+      <img src={deadcaseImage} width={800} height={400} alt="deadcase" />
     </main>
   );
 }
